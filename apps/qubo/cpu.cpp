@@ -83,7 +83,8 @@ static void search_cpu(int N,
                        std::vector<int>& DeltaE, 
                        long long& CurrentE, 
                        std::vector<uint32_t>& X) {
-  for (;;) {
+  bool flag = false;
+  do {
     int min_val = INT_MAX;
     int flip = -1;
     for (int v = 0; v < N; v++) {
@@ -92,13 +93,15 @@ static void search_cpu(int N,
         flip = v;
       }
     }
-    if (min_val >= 0 || flip < 0) {
-      break;
+    flag = min_val >= 0 || flip < 0;
+    // if (min_val >= 0 || flip < 0) {
+    //   break;
+    // }
+    if (!flag) {
+      const int flipvalue_before = get_bit(X, flip);
+      apply_flip(N, W, flip, flipvalue_before, X, DeltaE, CurrentE);
     }
-
-    const int flipvalue_before = get_bit(X, flip);
-    apply_flip(N, W, flip, flipvalue_before, X, DeltaE, CurrentE);
-  }
+  } while (!flag);
 }
 
 static void print_solution_bits(int N, const std::vector<uint32_t>& X) {

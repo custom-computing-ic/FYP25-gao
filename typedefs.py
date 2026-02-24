@@ -1,8 +1,9 @@
 from artisan import *
 
 class LoopNode:
-    def __init__(self, id: str, function: str, location: tuple[str, str, str], loop_type: str):
+    def __init__(self, id: str, tag: str, function: str, location: tuple[str, str, str], loop_type: str):
         self.id = id
+        self.tag = tag
         self.function = function
         self.location = location
         self.loop_type = loop_type
@@ -14,6 +15,7 @@ class LoopNode:
 class AnnotatedLoopNode:
     def __init__(self, properties: dict):
         self.id = properties['id']
+        self.graph_index = properties['graph_index']
         self.function = properties['function']
         self.location = properties['location']
         self.loop_type = properties['loop_type']
